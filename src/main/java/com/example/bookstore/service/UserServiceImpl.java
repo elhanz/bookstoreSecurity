@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        log.info("Saving new user {} to the database", user.getNickname());
+        log.info("Saving new user {} to the database", user.getEmail());
         return userRep.save(user);
     }
 
