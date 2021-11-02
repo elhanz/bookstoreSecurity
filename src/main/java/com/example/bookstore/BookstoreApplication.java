@@ -27,7 +27,6 @@ public class BookstoreApplication {
     CommandLineRunner run(UserService userService) {
         return args -> {
             userService.saveRole(new Role(null, "ROLE_USER"));
-            userService.saveRole(new Role(null, "ROLE_MANAGER"));
             userService.saveRole(new Role(null, "ROLE_ADMIN"));
             userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
 
@@ -37,8 +36,8 @@ public class BookstoreApplication {
             userService.saveUser(new User(null, "vp", "vp@mail.ru", "228", new ArrayList<>()));
 
             userService.addRoleToUser("elhanz@mail.ru", "ROLE_USER");
-            userService.addRoleToUser("elhanz@mail.ru", "ROLE_MANAGER");
-            userService.addRoleToUser("wing@mail.ru", "ROLE_MANAGER");
+            userService.addRoleToUser("elhanz@mail.ru", "ROLE_ADMIN");
+            userService.addRoleToUser("elhanz@mail.ru", "SUPER_ADMIN");
             userService.addRoleToUser("kaban@mail.ru", "ROLE_ADMIN");
             userService.addRoleToUser("vp@mail.ru", "ROLE_USER");
             userService.addRoleToUser("vp@mail.ru", "ROLE_ADMIN");
