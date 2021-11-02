@@ -9,8 +9,6 @@ import java.util.List;
 public interface UserService {
 
         User saveUser(User user);
-        Role saveRole(Role role);
-        Book saveBook (Book book);
         void addRoleToUser(String email,String  roleName);
         void addBookToUser(String email,String  bookName);
         User getUser (String email);

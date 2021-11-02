@@ -2,6 +2,7 @@ package com.example.bookstore;
 
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
+import com.example.bookstore.service.RoleService;
 import com.example.bookstore.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,12 +24,19 @@ public class BookstoreApplication {
     PasswordEncoder passwordEncoder() {
 		 return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    CommandLineRunner run(RoleService roleService) {
+        return args -> {
+            roleService.saveRole(new Role(null, "ROLE_USER"));
+            roleService.saveRole(new Role(null, "ROLE_ADMIN"));
+            roleService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
+        };
+    }
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
-            userService.saveRole(new Role(null, "ROLE_USER"));
-            userService.saveRole(new Role(null, "ROLE_ADMIN"));
-            userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
+
 
             userService.saveUser(new User(null, "elhanz", "elhanz@mail.ru", "1555", new ArrayList<>(),new ArrayList<>()));
             userService.saveUser(new User(null, "wing", "wing@mail.ru", "1337", new ArrayList<>(),new ArrayList<>()));

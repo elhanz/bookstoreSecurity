@@ -39,6 +39,7 @@ private final PasswordEncoder passwordEncoder;
       });
       return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
     }
+
     @Override
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getEmail());
@@ -46,17 +47,6 @@ private final PasswordEncoder passwordEncoder;
         return userRep.save(user);
     }
 
-    @Override
-    public Role saveRole(Role role) {
-        log.info("Saving new role {} to the database", role.getName());
-        return roleRep.save(role);
-    }
-
-    @Override
-    public Book saveBook(Book book) {
-        log.info("Saving new book {} to the database", book.getName());
-        return bookRep.save(book);
-    }
     @Override
     public void addRoleToUser(String email, String roleName) {
         log.info("Adding role {} to user {}", roleName, email);
