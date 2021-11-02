@@ -1,6 +1,7 @@
 package com.example.bookstore.service;
 
 //import com.example.bookstore.entities.Book;
+import com.auth0.jwt.JWT;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
 //import com.example.bookstore.repositories.BookRepository;
@@ -16,11 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
+    public static Map<String,String> tokens = new HashMap<>();
+
+
     private final UserRepository userRep;
     private final RoleRepository roleRep;
 //    private final BookRepository bookRep;
@@ -41,10 +44,13 @@ private final PasswordEncoder passwordEncoder;
     }
 
     @Override
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         log.info("Saving new user {} to the database", user.getEmail());
        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRep.save(user);
+       String email=user.getEmail();
+        userRep.save(user);
+        addRoleToUser(email, "ROLE_USER");
+
     }
 
     @Override
@@ -68,11 +74,37 @@ private final PasswordEncoder passwordEncoder;
     }
 
     @Override
+    public void updatePassword(String password) {
+        String token = tokens.get("access_token");
+        String email = JWT.decode(token).getSubject();
+        User user = userRep.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+       userRep.save(user);
+    }
+
+    @Override
+    public void updateNickname( String nickname) {
+        String token = tokens.get("access_token");
+        String email = JWT.decode(token).getSubject();
+        User user = userRep.findByEmail(email);
+        user.setNickname(nickname);
+        userRep.save(user);
+    }
+
+    @Override
     public List<User> getUsers() {
         log.info("Fetching all users");
         return userRep.findAll();
     }
-//    @Override
+
+    @Override
+    public void deleteUser() {
+        String token = tokens.get("access_token");
+        String email = JWT.decode(token).getSubject();
+        userRep.delete(userRep.findByEmail(email));
+    }
+
+    //    @Override
 //    public Book saveBook(Book book) {
 //        log.info("Saving new book {} to the database", book.getName());
 //        return bookRep.save(book);
@@ -82,6 +114,7 @@ private final PasswordEncoder passwordEncoder;
         log.info("Saving new role {} to the database", role.getName());
         return roleRep.save(role);
     }
+
 
 
 }
