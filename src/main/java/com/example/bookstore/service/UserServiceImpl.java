@@ -72,6 +72,16 @@ private final PasswordEncoder passwordEncoder;
         log.info("Fetching all users");
         return userRep.findAll();
     }
+    @Override
+    public Book saveBook(Book book) {
+        log.info("Saving new book {} to the database", book.getName());
+        return bookRep.save(book);
+    }
+    @Override
+    public Role saveRole(Role role) {
+        log.info("Saving new role {} to the database", role.getName());
+        return roleRep.save(role);
+    }
 
 
 }
