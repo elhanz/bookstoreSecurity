@@ -37,18 +37,42 @@ public class UserController {
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
-
-    @PostMapping("/user/save")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+    @GetMapping("/getUser")
+    public ResponseEntity<User> getUser(@RequestParam String email) {
+        return ResponseEntity.ok().body(userService.getUser(email));
     }
 
+    @PostMapping("/user/save")
+    public ResponseEntity saveUser(@RequestBody User user) {
+        return ResponseEntity.ok("User is saved");
+    }
 
     @PostMapping("/user/add/role")
     public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form) {
         userService.addRoleToUser(form.getEmail(), form.getRoleName());
     return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/role/save")
+    public ResponseEntity<Role>saveRole(@RequestBody Role role) {
+        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveRole(role));
+    }
+    @PostMapping("/updateNickname")
+    public ResponseEntity updateNickname(@RequestParam  String nickname) {
+        userService.updateNickname( nickname);
+        return ResponseEntity.ok(" Nickname is Updated");
+    }
+
+    @PostMapping("/updatePassword")
+    public ResponseEntity updatePassword(@RequestParam  String password) {
+        userService.updatePassword( password);
+        return ResponseEntity.ok("Password is updated");
+    }
+    @GetMapping("/user/delete")
+    public ResponseEntity deleteUser() {
+        userService.deleteUser();
+        return ResponseEntity.ok().body("User is deleted");
     }
 
 
@@ -57,11 +81,6 @@ public class UserController {
 //        userService.addBookToUser(form.getEmail(), form.getBookName());
 //        return ResponseEntity.ok().build();
 //    }
-    @PostMapping("/role/save")
-    public ResponseEntity<Role>saveRole(@RequestBody Role role) {
-        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveRole(role));
-    }
 //    @PostMapping("/book/save")
 //    public ResponseEntity<Book>saveBook(@RequestBody Book book) {
 //        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/book/save").toUriString());
