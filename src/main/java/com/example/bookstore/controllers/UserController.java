@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
 import com.example.bookstore.service.UserService;
@@ -42,15 +43,27 @@ public class UserController {
         URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
+
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role) {
         URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-    @PostMapping("/role/add/role")
+    @PostMapping("/user/add/role")
     public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form) {
         userService.addRoleToUser(form.getEmail(), form.getRoleName());
     return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/book/save")
+    public ResponseEntity<Book>saveBook(@RequestBody Book book) {
+        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/book/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveBook(book));
+    }
+    @PostMapping("/user/add/book")
+    public ResponseEntity<?>addBookToUser(@RequestBody BookToUserForm form) {
+        userService.addBookToUser(form.getEmail(), form.getBookName());
+        return ResponseEntity.ok().build();
     }
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -87,8 +100,14 @@ public class UserController {
         }
     }
 }
+
 @Data
 class RoleToUserForm{
     private String email;
     private String roleName;
+}
+@Data
+class BookToUserForm{
+    private String email;
+    private String bookName;
 }

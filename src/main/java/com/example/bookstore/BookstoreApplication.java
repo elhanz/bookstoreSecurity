@@ -30,10 +30,10 @@ public class BookstoreApplication {
             userService.saveRole(new Role(null, "ROLE_ADMIN"));
             userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
 
-            userService.saveUser(new User(null, "elhanz", "elhanz@mail.ru", "1555", new ArrayList<>()));
-            userService.saveUser(new User(null, "wing", "wing@mail.ru", "1337", new ArrayList<>()));
-            userService.saveUser(new User(null, "kaban", "kaban@mail.ru", "322", new ArrayList<>()));
-            userService.saveUser(new User(null, "vp", "vp@mail.ru", "228", new ArrayList<>()));
+            userService.saveUser(new User(null, "elhanz", "elhanz@mail.ru", "1555", new ArrayList<>(),new ArrayList<>()));
+            userService.saveUser(new User(null, "wing", "wing@mail.ru", "1337", new ArrayList<>(),new ArrayList<>()));
+            userService.saveUser(new User(null, "kaban", "kaban@mail.ru", "322", new ArrayList<>(),new ArrayList<>()));
+            userService.saveUser(new User(null, "vp", "vp@mail.ru", "228", new ArrayList<>(),new ArrayList<>()));
 
             userService.addRoleToUser("elhanz@mail.ru", "ROLE_USER");
             userService.addRoleToUser("elhanz@mail.ru", "ROLE_ADMIN");

@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
 
@@ -9,7 +10,9 @@ public interface UserService {
 
         User saveUser(User user);
         Role saveRole(Role role);
+        Book saveBook (Book book);
         void addRoleToUser(String email,String  roleName);
+        void addBookToUser(String email,String  bookName);
         User getUser (String email);
         List<User> getUsers();
 
