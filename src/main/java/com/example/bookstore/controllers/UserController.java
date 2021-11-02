@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.bookstore.entities.Book;
+//import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
 import com.example.bookstore.service.UserService;
@@ -52,21 +52,21 @@ public class UserController {
     }
 
 
-    @PostMapping("/user/add/book")
-    public ResponseEntity<?>addBookToUser(@RequestBody BookToUserForm form) {
-        userService.addBookToUser(form.getEmail(), form.getBookName());
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/user/add/book")
+//    public ResponseEntity<?>addBookToUser(@RequestBody BookToUserForm form) {
+//        userService.addBookToUser(form.getEmail(), form.getBookName());
+//        return ResponseEntity.ok().build();
+//    }
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role) {
         URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-    @PostMapping("/book/save")
-    public ResponseEntity<Book>saveBook(@RequestBody Book book) {
-        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/book/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveBook(book));
-    }
+//    @PostMapping("/book/save")
+//    public ResponseEntity<Book>saveBook(@RequestBody Book book) {
+//        URI uri= URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/book/save").toUriString());
+//        return ResponseEntity.created(uri).body(userService.saveBook(book));
+//    }
 
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

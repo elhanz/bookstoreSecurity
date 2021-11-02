@@ -1,9 +1,9 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.entities.Book;
+//import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
-import com.example.bookstore.repositories.BookRepository;
+//import com.example.bookstore.repositories.BookRepository;
 import com.example.bookstore.repositories.RoleRepository;
 import com.example.bookstore.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRep;
     private final RoleRepository roleRep;
-    private final BookRepository bookRep;
+//    private final BookRepository bookRep;
 private final PasswordEncoder passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -54,13 +54,13 @@ private final PasswordEncoder passwordEncoder;
         Role role = roleRep.findByName(roleName);
         user.getRoles().add(role);
     }
-    @Override
-    public void addBookToUser(String email, String bookName) {
-        log.info("Adding book {} to user {}", bookName, email);
-        User user = userRep.findByEmail(email);
-        Book book = bookRep.findBookByName(bookName);
-        user.getBooks().add(book);
-    }
+//    @Override
+//    public void addBookToUser(String email, String bookName) {
+//        log.info("Adding book {} to user {}", bookName, email);
+//        User user = userRep.findByEmail(email);
+//        Book book = bookRep.findBookByName(bookName);
+//        user.getBooks().add(book);
+//    }
     @Override
     public User getUser(String email) {
         log.info("Fetching user{}", email);
@@ -72,11 +72,11 @@ private final PasswordEncoder passwordEncoder;
         log.info("Fetching all users");
         return userRep.findAll();
     }
-    @Override
-    public Book saveBook(Book book) {
-        log.info("Saving new book {} to the database", book.getName());
-        return bookRep.save(book);
-    }
+//    @Override
+//    public Book saveBook(Book book) {
+//        log.info("Saving new book {} to the database", book.getName());
+//        return bookRep.save(book);
+//    }
     @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
