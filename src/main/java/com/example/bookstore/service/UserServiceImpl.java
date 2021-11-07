@@ -1,10 +1,10 @@
 package com.example.bookstore.service;
 
-//import com.example.bookstore.entities.Book;
+import com.example.bookstore.entities.Book;
 import com.auth0.jwt.JWT;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
-//import com.example.bookstore.repositories.BookRepository;
+import com.example.bookstore.repositories.BookRepository;
 import com.example.bookstore.repositories.RoleRepository;
 import com.example.bookstore.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRep;
     private final RoleRepository roleRep;
-//    private final BookRepository bookRep;
+
 private final PasswordEncoder passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -104,11 +104,7 @@ private final PasswordEncoder passwordEncoder;
         userRep.delete(userRep.findByEmail(email));
     }
 
-    //    @Override
-//    public Book saveBook(Book book) {
-//        log.info("Saving new book {} to the database", book.getName());
-//        return bookRep.save(book);
-//    }
+
     @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());

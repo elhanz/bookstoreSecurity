@@ -1,7 +1,9 @@
 package com.example.bookstore;
 
+import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Role;
 import com.example.bookstore.entities.User;
+import com.example.bookstore.service.BookService;
 import com.example.bookstore.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,15 +26,13 @@ public class BookstoreApplication {
 		 return new BCryptPasswordEncoder();
     }
     @Bean
-    CommandLineRunner run(UserService userService) {
+    CommandLineRunner run(UserService userService, BookService bookService) {
         return args -> {
             userService.saveRole(new Role(null, "ROLE_USER"));
             userService.saveRole(new Role(null, "ROLE_ADMIN"));
             userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
-//
-//            userService.saveBook(new Book(null, "ROLE_USER"));
-//            userService.saveBook(new Book(null, "ROLE_ADMIN"));
-//            userService.saveBook(new Book(null, "ROLE_SUPER_ADMIN"));
+
+        bookService.saveBook(new Book(null, "legendary","first book","elhanz",2021,"Kazakhstan","Real life",5000));
 
             userService.saveUser(new User(null, "elhanz", "elhanz@mail.ru", "1555", new ArrayList<>()));
             userService.saveUser(new User(null, "wing", "wing@mail.ru", "1337", new ArrayList<>()));
@@ -44,7 +44,7 @@ public class BookstoreApplication {
             userService.addRoleToUser("elhanz@mail.ru", "SUPER_ADMIN");
             userService.addRoleToUser("kaban@mail.ru", "ROLE_ADMIN");
 
-            userService.addRoleToUser("vp@mail.ru", "ROLE_ADMIN");
+
             userService.addRoleToUser("vp@mail.ru", "ROLE_SUPER_ADMIN");
         };
     }
