@@ -11,7 +11,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "usr")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,5 +22,8 @@ public class User {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles =new ArrayList<>();
+    @ManyToMany
+    private Collection<Book> books =new ArrayList<>();
+
 
 }

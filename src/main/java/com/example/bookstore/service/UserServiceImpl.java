@@ -23,9 +23,9 @@ import java.util.*;
 public class UserServiceImpl implements UserService, UserDetailsService {
     public static Map<String,String> tokens = new HashMap<>();
 
-
     private final UserRepository userRep;
     private final RoleRepository roleRep;
+
 
 private final PasswordEncoder passwordEncoder;
     @Override
@@ -60,13 +60,7 @@ private final PasswordEncoder passwordEncoder;
         Role role = roleRep.findByName(roleName);
         user.getRoles().add(role);
     }
-//    @Override
-//    public void addBookToUser(String email, String bookName) {
-//        log.info("Adding book {} to user {}", bookName, email);
-//        User user = userRep.findByEmail(email);
-//        Book book = bookRep.findBookByName(bookName);
-//        user.getBooks().add(book);
-//    }
+
     @Override
     public User getUser(String email) {
         log.info("Fetching user{}", email);
